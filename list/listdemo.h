@@ -111,11 +111,5 @@ static inline void list_del(struct list_head *entry)
 #define list_first_entry(ptr, type, member) \
         list_entry((ptr)->next, type, member)
 
-//自定义消息结构体
-struct msg {
-    int msgid;
-    char msginfo[50];
-    struct list_head list;
-};
 
 #endif

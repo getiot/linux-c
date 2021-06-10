@@ -1,4 +1,5 @@
+CFLAGS=-std=gnu99
 default:
-	@gcc -o listdemo listdemo.c
+	@gcc ${CFLAGS} listdemo.c -o listdemo
 clean:
 	@rm -rf listdemo
