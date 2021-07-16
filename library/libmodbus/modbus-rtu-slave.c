@@ -25,7 +25,7 @@ All these functions are called with random values on a address range defined by 
 #define ADDRESS_START    0      // 测试寄存器起始地址
 #define ADDRESS_END     99      // 测试寄存器结束地址
 
-int main(void)
+int main(int argc, char *argv[])
 {
     modbus_t *ctx = NULL;
 
@@ -37,12 +37,18 @@ int main(void)
     uint16_t *tab_rq_registers;
     uint16_t *tab_rw_rq_registers;
     uint16_t *tab_rp_registers;
+    char *port;
 
     modbus_mapping_t *mb_mapping;
 
-    // RTU 
+    if (argc == 2) {
+        port = argv[1];
+    } else {
+        port = "COM5";
+    }
+
     // 创建一个RTU类型的容器
-    ctx = modbus_new_rtu("COM5", 19200, 'N', 8, 1);
+    ctx = modbus_new_rtu(port, 19200, 'N', 8, 1);
  
     // 设置从端地址
     modbus_set_slave(ctx, Server_ID);

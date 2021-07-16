@@ -41,10 +41,16 @@ int main(int argc, char *argv[])
     uint16_t *tab_rq_registers;
     uint16_t *tab_rw_rq_registers;
     uint16_t *tab_rp_registers;
+    char *port;
 
-    // RTU 
+    if (argc == 2) {
+        port = argv[1];
+    } else {
+        port = "COM4";
+    }
+
     // 创建一个RTU类型的容器
-    ctx = modbus_new_rtu("COM4", 19200, 'N', 8, 1);
+    ctx = modbus_new_rtu(port, 19200, 'N', 8, 1);
 
     // 设置从端地址
     modbus_set_slave(ctx, Server_ID);
@@ -59,6 +65,8 @@ int main(int argc, char *argv[])
         modbus_free(ctx);
         return -1;
     }
+
+    printf("Connection successed\n");
 
     /*Allocate and initialize the different memory space */
     // 计算需要测试的寄存器个数
@@ -87,7 +95,7 @@ int main(int argc, char *argv[])
         // 从起始地址开始顺序测试
         for (addr = ADDRESS_START; addr < ADDRESS_END; addr++)
         {
-            sleep(500);
+            sleep(1);
  
             int i = 0;
  
@@ -99,9 +107,9 @@ int main(int argc, char *argv[])
                 tab_rq_bits[i] = tab_rq_registers[i] % 2;
             }
             nb = ADDRESS_END - addr;
- 
- 
+
             // 测试线圈寄存器的单个读写
+            printf("modbus_write_bit()...\n");
             rc = modbus_write_bit(ctx, addr, tab_rq_bits[0]); // 写线圈寄存器
             if (rc != 1)
             {
@@ -122,6 +130,7 @@ int main(int argc, char *argv[])
             }
  
             // 测试线圈寄存器的批量读写
+            printf("modbus_write_bits()...\n");
             rc = modbus_write_bits(ctx, addr, nb, tab_rq_bits);
             if (rc != nb)
             {
@@ -157,6 +166,7 @@ int main(int argc, char *argv[])
             }
 
             // 测试保持寄存器的单个读写
+            printf("modbus_write_register()...\n");
             rc = modbus_write_register(ctx, addr, tab_rq_registers[0]);
             if (rc != 1)
             {
@@ -190,6 +200,7 @@ int main(int argc, char *argv[])
             }
 
             // 测试线圈寄存器的批量读写
+            printf("modbus_write_registers()...\n");
             rc = modbus_write_registers(ctx, addr, nb, tab_rq_registers);
             if (rc != nb)
             {
@@ -227,6 +238,7 @@ int main(int argc, char *argv[])
             }
 
             // 功能码 23 （0x17） 读写多个寄存器的测试
+            printf("modbus_write_and_read_registers()...\n");
             rc = modbus_write_and_read_registers(ctx, 
                 addr, nb, tab_rw_rq_registers,
                 addr, nb, tab_rp_registers);
