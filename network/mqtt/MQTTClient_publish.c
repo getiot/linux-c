@@ -7,9 +7,9 @@
 #include "MQTTClient.h"
 
 #define ADDRESS     "tcp://localhost:1883" //更改此处地址
-#define CLIENTID    "ubuntu" //更改此处客户端ID
-#define TOPIC       "test"  //更改发送的话题
-#define PAYLOAD     "Hello, GetIoT.tech!" //更改信息内容
+#define CLIENTID    "ExampleClientPub"     //更改此处客户端ID
+#define TOPIC       "test"                 //更改发送的话题
+#define PAYLOAD     "Hello, GetIoT.tech!"  //更改信息内容
 #define QOS         1
 #define TIMEOUT     10000L
 
@@ -57,6 +57,6 @@ int main(int argc, char* argv[])
 
     MQTTClient_disconnect(client, 10000);
     MQTTClient_destroy(&client);
-    
+
     return rc;
 }
