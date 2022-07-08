@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1.3)
 
-project(hello)
+project(hello VERSION 1.0.0 LANGUAGES "C")
 
 set( HELLO_SRCS 
     hello.c

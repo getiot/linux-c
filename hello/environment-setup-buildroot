@@ -1,0 +1,42 @@
+# Check for LD_LIBRARY_PATH being set, which can break SDK and generally is a bad practice
+# http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html#AEN80
+# http://xahlee.info/UnixResource_dir/_/ldpath.html
+# Only disable this check if you are absolutely know what you are doing!
+if [ ! -z "$LD_LIBRARY_PATH" ]; then
+    echo "Your environment is misconfigured, you probably need to 'unset LD_LIBRARY_PATH'"
+    echo "but please check why this was set in the first place and that it's safe to unset."
+    echo "The SDK will not operate correctly in most cases when LD_LIBRARY_PATH is set."
+    echo "For more references see:"
+    echo "  http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html#AEN80"
+    echo "  http://xahlee.info/UnixResource_dir/_/ldpath.html"
+    return 1
+fi
+export LD_LIBRARY_PATH=/opt/buildroot/host/lib
+
+export SDKTARGETSYSROOT=/opt/buildroot/host/aarch64-buildroot-linux-gnu/sysroot
+export PATH=/opt/buildroot/host:/opt/buildroot/host/bin:/opt/buildroot/host/sbin:/opt/buildroot/host/usr/bin:/opt/buildroot/host/usr/sbin:/opt/buildroot/host/usr/aarch64-buildroot-linux-gnu/bin:$PATH
+export PKG_CONFIG_SYSROOT_DIR=$SDKTARGETSYSROOT
+export PKG_CONFIG_PATH=$SDKTARGETSYSROOT/usr/lib/pkgconfig
+export CC="aarch64-linux-gcc  -mcpu=cortex-a72.cortex-a53 -march=armv8-a+crc -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=$SDKTARGETSYSROOT"
+export CXX="aarch64-linux-g++  -mcpu=cortex-a72.cortex-a53 -march=armv8-a+crc -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=$SDKTARGETSYSROOT"
+export CPP="aarch64-linux-gcc -E  -mcpu=cortex-a72.cortex-a53 -march=armv8-a+crc -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=$SDKTARGETSYSROOT"
+export AS="aarch64-linux-as "
+export LD="aarch64-linux-ld  --sysroot=$SDKTARGETSYSROOT"
+export GDB=aarch64-linux-gdb
+export STRIP=aarch64-linux-strip
+export RANLIB=aarch64-linux-ranlib
+export OBJCOPY=aarch64-linux-objcopy
+export OBJDUMP=aarch64-linux-objdump
+export READELF=aarch64-linux-readelf
+export AR=aarch64-linux-ar
+export NM=aarch64-linux-nm
+export M4=m4
+export TARGET_PREFIX=aarch64-linux-
+#export CONFIGURE_FLAGS="--target=aarch64-linux --host=aarch64-linux --build=x86_64-linux --with-libtool-sysroot=$SDKTARGETSYSROOT"
+export CFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types "
+export CXXFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types "
+export LDFLAGS="-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -Wl,-z,relro,-z,now"
+export CPPFLAGS=""
+export KCFLAGS="--sysroot=$SDKTARGETSYSROOT"
+export ARCH=arm64
+export CROSS_COMPILE=aarch64-linux-
