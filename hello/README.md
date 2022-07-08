@@ -15,6 +15,13 @@ export LD_LIBRARY_PATH=/opt/buildroot/host/lib
 source environment-setup-buildroot
 ```
 
+创建并切换构建目录
+
+```bash
+$ mkdir build
+$ cd build
+```
+
 指定交叉编译工具链配置进行编译
 
 ```bash
@@ -25,5 +32,5 @@ $ make
 部署到板子上运行
 
 ```bash
-
+$ scp hello root@192.168.0.2:/root/
 ```
