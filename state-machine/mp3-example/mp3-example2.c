@@ -57,6 +57,7 @@ void startPlay()
     //进入播放状态
     pCurrentState = &PLAY;
 }
+
 void stopPlay()
 {
     //实现具体功能
@@ -91,7 +92,8 @@ void onPlayOrPause();
 
 State context = {
     onStop,
-    onPlayOrPause};
+    onPlayOrPause
+};
 
 void onStop(State *pThis)
 {
