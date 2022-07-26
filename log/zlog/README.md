@@ -15,12 +15,8 @@ make
 
 ```bash
 $ ./zlog_example 
-hello, zlog
-hello, zlog
 ```
 
 ```bash
 $ ./dzlog_example 
-hello, zlog
-hello, zlog
 ```
