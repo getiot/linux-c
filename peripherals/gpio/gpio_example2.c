@@ -15,28 +15,28 @@ int main(int argc, char const *argv[])
 
     /* 打开 GPIO 控制器 */
     gpiochip1 = gpiod_chip_open("/dev/gpiochip1");
-    if (!gpiochip1)
+    if (!gpiochip1) {
+        fprintf(stderr, "gpio chip open error.\n");
         return -1;
+    }
 
     /* 获取 GPIO1_B3 引脚 */
     pin = gpiod_chip_get_line(gpiochip1, GPIO1_B3);
 
-    if (!pin)
-    {
+    if (!pin) {
+        fprintf(stderr, "gpio get line error.\n");
         gpiod_chip_close(gpiochip1);
         return -1;
     }
 
     /* 配置引脚  输出模式 name为“bilik” 初始电平为low*/
     req = gpiod_line_request_output(pin, "blink", 0);
-    if (req)
-    {
-        fprintf(stderr, "pin request error.\n");
+    if (req) {
+        fprintf(stderr, "gpio request error.\n");
         return -1;
     }
 
-    while (1)
-    {
+    while (1) {
         /* 设置引脚电平 */
         gpiod_line_set_value(pin, 1);
         printf("set pin to 0\n");
