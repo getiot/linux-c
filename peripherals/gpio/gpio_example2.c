@@ -3,6 +3,7 @@
 #include <gpiod.h>
 
 #define GPIO1_B3  43 /* GPIO1_B3 = 1*32+8+3 = 43 */
+#define RK_PB3    11
 
 #define msleep(t) usleep((t)*1000)
 
@@ -21,7 +22,7 @@ int main(int argc, char const *argv[])
     }
 
     /* 获取 GPIO1_B3 引脚 */
-    pin = gpiod_chip_get_line(gpiochip1, GPIO1_B3);
+    pin = gpiod_chip_get_line(gpiochip1, RK_PB3);
 
     if (!pin) {
         fprintf(stderr, "gpio get line error.\n");
