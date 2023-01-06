@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
     }
 
     /* 配置引脚，输出模式 name 为 "blink" 初始电平为 low */
-#if 1
+#if 0
     config.consumer = "blink";
     config.request_type = GPIOD_LINE_REQUEST_DIRECTION_OUTPUT; // 输出模式
 
