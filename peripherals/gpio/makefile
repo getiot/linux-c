@@ -1,6 +1,9 @@
 all:
 	gcc gpio_example.c -lgpiod -o gpio_example
-	gcc gpio_example2.c -lgpiod -o gpio_example2
+	gcc libgpiod-led.c -lgpiod -o libgpiod-led
+	gcc libgpiod-input.c -lgpiod -o libgpiod-input
+	gcc libgpiod-event.c -lgpiod -o libgpiod-event
 
 clean:
-	rm gpio_example gpio_example2
+	rm gpio_example
+	rm libgpiod-led libgpiod-input libgpiod-event
