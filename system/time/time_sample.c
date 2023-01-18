@@ -3,7 +3,7 @@
 
 int main()
 {
-    int seconds = time((time_t*)NULL);
-    printf("%d\n", seconds);
+    time_t seconds = time((time_t*)NULL);
+    printf("%lu\n", seconds);
     return 0;
 }

@@ -7,6 +7,7 @@ all:
 	gcc gmtime_sample.c -o gmtime_sample
 	gcc mktime.c -o mktime
 	gcc timeval_to_tm.c -o timeval_to_tm
+	gcc gettimestamp_microsecond.c -o gettimestamp_microsecond
 
 clean:
 	rm asctime_sample
@@ -17,3 +18,4 @@ clean:
 	rm gmtime_sample
 	rm mktime
 	rm timeval_to_tm
+	rm gettimestamp_microsecond
