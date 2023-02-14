@@ -18,11 +18,19 @@ void stop_work(int signum)
     working = false;
 }
 
+void signal_handler(int signum)
+{
+    printf("Signal %d caught\n", signum);
+}
+
 void * task(void *args)
 {
     signal(SIGUSR1, start_work);
     signal(SIGUSR2, stop_work);
+    // signal(SIGCONT, signal_handler);
+    //signal(SIGINT, signal_handler);
 
+    // pause();
     while (1) {
         if (working) break;
         sleep(1);
@@ -44,6 +52,7 @@ int main(void)
     pthread_t tid;
     void *status;
 
+    printf("process id is %d\n", getpid());
     pthread_create(&tid, NULL, task, NULL);
 
     sleep(1);
