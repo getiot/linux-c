@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("Hello, GetIoT\n");
+    printf("Hello, GetIoT!\n");
     return 0;
 }
