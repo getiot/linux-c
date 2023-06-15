@@ -67,11 +67,8 @@ int main(int argc, char *argv[])
         buffer[n] = '\0';
         printf("Client : %s\n", buffer);
 
-#if 0
-        sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM,
+        sendto(sockfd, (const char *)buffer, strlen(buffer), MSG_CONFIRM,
                (const struct sockaddr *)&cliaddr, len);
-        printf("Hello message sent.\n");
-#endif
     }
 
     close(sockfd);
