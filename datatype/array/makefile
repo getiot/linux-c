@@ -1,5 +1,6 @@
 all:
+	gcc access_array.c -o access_array
 	gcc dynamic_array.c -o dynamic_array
 
 clean:
-	rm dynamic_array
+	rm access_array dynamic_array
