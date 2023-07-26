@@ -1,6 +1,14 @@
-all:
-	gcc access_array.c -o access_array
-	gcc dynamic_array.c -o dynamic_array
+CC := gcc
+CFLAGS := -std=gnu17 -Wall -Wextra
+SRCS := $(wildcard *.c)
+EXES := $(SRCS:.c=)
+
+all: $(EXES)
+
+%: %.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	rm access_array dynamic_array
+	rm -f $(EXES)
+
+.PHONY: all clean
