@@ -1,8 +1,14 @@
-CC ?= gcc
-CFLAGS = -O
+CC := gcc
+CFLAGS := -std=gnu17 -Wall -Wextra
+SRCS := $(wildcard *.c)
+EXES := $(SRCS:.c=)
 
-all:
-	$(CC) $(CFLAGS) typesize.c -o typesize
+all: $(EXES)
+
+%: %.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	rm typesize
+	rm -f $(EXES)
+
+.PHONY: all clean
