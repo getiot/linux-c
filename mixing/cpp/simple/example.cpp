@@ -4,5 +4,5 @@ extern "C" void printMessage();
 
 void printMessage()
 {
-    std::cout << "Hello from C++ class!" << std::endl;
+    std::cout << "Hello from C++ function!" << std::endl;
 }
