@@ -40,7 +40,7 @@ int known_weekday = Tues;
 int known_year = 1901;
 int konwn_month = 1;
 int known_day = 1;
-  
+
 int day_count(int month)
 {
     switch(month)
@@ -60,7 +60,6 @@ int day_count(int month)
     }
 }
 
-
 char *get_month_name(int month)
 {
     if (month < 1 || month > 12) {
@@ -73,9 +72,9 @@ char *get_month_name(int month)
     return month_names_en[month-1];
 #endif
 }
-  
-/*按格式打印某年某月名称*/
-void first_line_print(int month, int year)
+
+/* 按格式打印某年某月名称 */
+void print_month_header(int month, int year)
 {
 #ifdef PRINT_IN_CHINESE
     printf("%15d年 %s \n", year, get_month_name(month));
@@ -83,9 +82,9 @@ void first_line_print(int month, int year)
     printf("%17s %d \n", get_month_name(month), year);
 #endif
 }
-  
-/*按格式打印星期名称*/
-void week_print()
+
+/* 按格式打印星期名称 */
+void print_week_header()
 {
 #ifdef PRINT_IN_CHINESE
     printf(" %-6s%-6s%-6s%-6s%-6s%-6s%-6s\n","日", "一", "二", "三", "四", "五", "六");
@@ -94,7 +93,7 @@ void week_print()
 #endif
 }
   
-/*计算该年该月份与已知日子之间的距离天数*/
+/* 计算该年该月份与已知日子之间的距离天数 */
 int date_distance_count(int month, int year)
 {
     int leap_year_count = 0;
@@ -119,7 +118,7 @@ int date_distance_count(int month, int year)
             }
         }
     }
-    else
+    else {
         if (year == known_year)
         {
             if (month > 2)
@@ -127,26 +126,25 @@ int date_distance_count(int month, int year)
                 leap_year_count = 1;
             }
         }
-         
-         
-        distance = (year - known_year)*365 + leap_year_count + day_count(month);
-         
-        return distance;
+    }
+     
+    distance = (year - known_year) * 365 + leap_year_count + day_count(month);
+    return distance;
 }
-  
-/*确定该月份第一天是星期几*/
+
+/* 确定该月份第一天是星期几 */
 int makesure_firstday_weekday(int month, int year)
 {
     int date_distance = 0;
     int weekday;
      
     date_distance = date_distance_count(month, year);
-    weekday = (known_weekday + date_distance)%7;
+    weekday = (known_weekday + date_distance) % 7;
      
     return weekday;
 }
-  
-/*依次打印出该月份的日子*/
+
+/* 依次打印出该月份的日子 */
 void print_in_turn(int month, int firstday, int year)
 {
     int i = 1;
@@ -157,22 +155,22 @@ void print_in_turn(int month, int firstday, int year)
     case Sun:
         break;
     case Mon:
-        printf("%-5s","");
+        printf("%-5s", "");
         break;
     case Tues:
-        printf("%-10s","");
+        printf("%-10s", "");
         break;
     case Wed:
-        printf("%-15s","");
+        printf("%-15s", "");
         break;
     case Thur:
-        printf("%-20s","");
+        printf("%-20s", "");
         break;
     case Fri:
-        printf("%-25s","");
+        printf("%-25s", "");
         break;
     case Sat:
-        printf("%-30s","");
+        printf("%-30s", "");
         break;
     }
      
@@ -237,12 +235,12 @@ void print_in_turn(int month, int firstday, int year)
         {
             for(i=0; i<30; i++)
             {
-                weekday = (firstday + i) % 7;/*计算该天是星期几*/
+                weekday = (firstday + i) % 7; /*计算该天是星期几*/
                 printf("%3d  ", i+1);
                  
                 if(weekday == Sat)
                 {
-                    printf("\n");/*如果是星期六，则换行*/
+                    printf("\n"); /*如果是星期六，则换行*/
                 }
             }
             break;
@@ -250,7 +248,7 @@ void print_in_turn(int month, int firstday, int year)
     }
 }
   
-void date_print(int month, int year)
+void print_date(int month, int year)
 {
     int firstday;
      
@@ -259,20 +257,20 @@ void date_print(int month, int year)
     printf("\n");
 }
   
-void main_month(int month, int year)
+void print_month(int month, int year)
 {
-    first_line_print(month, year);
-    week_print();
-    date_print(month, year);
+    print_month_header(month, year);
+    print_week_header();
+    print_date(month, year);
     printf("\n\n");
 }
   
-void main_calendar(int year)
+void print_calendar(int year)
 {
     int i;
     for(i=1; i<=12; i++)
     {
-        main_month(i, year);
+        print_month(i, year);
     }
 }
   
@@ -280,18 +278,16 @@ int main()
 {
     int year;
     printf("请输入年份：year = ");
-    scanf("%d",&year);
+    scanf("%d", &year);
     printf("\n");
      
-    while(year < 1902)
-    {
+    while(year < 1902) {
         printf("请输入大于1901的年份\n");
-         
         printf("请输入年份：year = ");
-        scanf("%d",&year);
+        scanf("%d", &year);
         printf("\n");
     }
      
-    main_calendar(year);
+    print_calendar(year);
     return 0;
 }
